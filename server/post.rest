@@ -1,0 +1,45 @@
+POST http://localhost:4000/
+Content-Type: application/json
+
+
+ {
+  "username": "Aditya34&",
+  "password": "ddRT##4304",
+  "email": "adityavinchhi@gmail.com",
+  "first_name": "Aproov",
+  "last_name": "Jain",
+  "dob": "2003-11-04"
+}
+
+###
+
+
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+  "username": "Aditya34&",
+  "password": "ddRT##4304"
+}
+
+###
+
+POST http://localhost:4000/logout
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJBZGl0eWEzNCYiLCJpYXQiOjE2OTc5ODU0MTJ9.-fC2LZgP6yMDmfKc9QsJrgfcVgulkJb18jNjJCsPePw"
+}
+###
+
+GET http://localhost:4000/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJBZGl0eWEzNCYiLCJpYXQiOjE2OTc5ODgzNTIsImV4cCI6MTY5Nzk5MDE1Mn0.R1kNyI6QNEwdlsgce4Iipxhx68vDms4u5912Va49mMs
+
+###
+
+POST  http://localhost:4000/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJBZGl0eWEzNCYiLCJpYXQiOjE2OTc5OTA2NTV9.dco_KSDrblUhE-JVTYunGGBPun-_YLSG813VmEn0m80"
+}
