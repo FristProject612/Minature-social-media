@@ -3,7 +3,7 @@ const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
 const postRoute = require('./src/routes/postRoute');
-
+const commentRoute = require('./src/routes/commentRoute');
 const userRoute = require('./src/routes/userRoute');
 app.use(cors());
 
@@ -22,22 +22,10 @@ app.use(express.json());
 
 app.use("/post", postRoute);
 app.use("/", userRoute);
+app.use("/comment", commentRoute);
+
 app.use(express.static('public'));
 
-
-const data = {
-  username: "vjapoor",
-  password: "ddRT##4304",
-  email: "aproov2@hot.com",
-  first_name: "Aproov",
-  last_name: "Jain",
-  dob: "2003-11-04"
-}
-const post = {
-  userId: 1,
-  title: "mysql",
-  text: "Mysql is a opensource sql software."
-}
 
 // app.post('/', signup);
 // app.post('/login', login);

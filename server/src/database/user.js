@@ -20,6 +20,17 @@ async function show() {
   return rows; 
 }
 
+async  function checkById(userId) {
+  const db = await connectDb();
+  const query = `select *
+                from users 
+                where id = ?`;
+
+  const row = await db.get(query, [userId]);
+  await db.close();
+  return row;
+}
+
 // can make it 
 async function check(username) {
   const db = await connectDb();
@@ -102,4 +113,4 @@ async function updateAvtar(userId, fileName, filetype) {
   db.close();
 }
 
-module.exports = { insert, show, check, updateAbout, updateToken, removeToken, checkToken, updateAvtar }
+module.exports = { insert, show, checkById, check, updateAbout, updateToken, removeToken, checkToken, updateAvtar }

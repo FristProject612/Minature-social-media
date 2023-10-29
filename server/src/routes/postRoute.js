@@ -1,11 +1,13 @@
 const router = require("express").Router();
 const multer = require("multer")
-const { uploadPost, showUserPosts, removePost, getPost, likeDislike, showUserLikesPosts } = require('../middleWares/postController');
+const { uploadPost, showUserPosts, removePost, getPost, likeDislike, showUserLikesPosts, showAllPosts } = require('../middleWares/postController');
 const { authenticateUser } = require('../middleWares/userAuth');
 
 
 const uploads = multer({ dest: './uploads'});
 router.post('/upload', authenticateUser, uploads.single('post'), uploadPost);
+
+router.get('/feeds', showAllPosts);
 
 // show all posts by username
 router.get('/username/:username', showUserPosts);

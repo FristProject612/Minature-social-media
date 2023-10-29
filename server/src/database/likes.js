@@ -37,8 +37,8 @@ async function unlikePost(userId, postId) {
 // returns all posts liked by userId
 async function userLikedPosts(userId) {
   const db = await connectDb();
-  const query = `select *
-                 from post 
+  const query = `select postId, userId, post_title, post_content, likes, comments, post.image_exists as image_exists, post.image_path as image_path, post_time, username, users.image_exists as avtar_exists, users.image_path as avtar_path
+                 from post inner join users on post.userId = users.id
                  where postId in (select postId
                  from likes
                  where userId = ?)`;

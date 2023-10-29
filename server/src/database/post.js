@@ -109,14 +109,26 @@ async function deletePostImage(userId, postId) {
 
 async function checkPost(postId) {
   const db = await connectDb();
-  const query = `select * 
-                 from post
+  const query = `select postId, userId, post_title, post_content, likes, comments, post.image_exists as image_exists, post.image_path as image_path, post_time, username, users.image_exists as avtar_exists, users.image_path as avtar_path
+                 from post inner join users on post.userId = users.id
                  where postId = ?`;
   const row = await db.get(query, [postId]);
   await db.close();
   return row;
 }
 
+async function getAllPosts() {
+  const db = await connectDb();
+  const query = `select postId, userId, post_title, post_content, likes, comments, post.image_exists as image_exists, post.image_path as image_path, post_time, username, users.image_exists as avtar_exists, users.image_path as avtar_path
+                 from post inner join users on post.userId = users.id 
+                 order by postId desc`;
+
+  const rows = await db.all(query);
+  await db.close();
+
+  return (rows.length === 0)? null : rows;
+}
 
 
-module.exports = { addPost, getUserPosts, deletePost, checkPost };
+
+module.exports = { addPost, getUserPosts, deletePost, checkPost, getAllPosts };

@@ -106,6 +106,16 @@ async function getPost(req, res) {
   }
 }
 
+async function showAllPosts(req, res) {
+  const rows = await post.getAllPosts();
+
+  if(!rows){
+    return res.status(200).json({ message: "No post in database."});
+  }
+
+  res.status(200).json(rows)
+}
+
 async function likeDislike(req, res) {
   const userId = req.userData.id;
   const postId = req.body.postId;
@@ -150,4 +160,4 @@ async function showUserLikesPosts(req, res) {
 
 }
 
-module.exports = { uploadPost, showUserPosts, removePost, getPost, likeDislike, showUserLikesPosts };
+module.exports = { uploadPost, showUserPosts, removePost, getPost, likeDislike, showUserLikesPosts, showAllPosts};

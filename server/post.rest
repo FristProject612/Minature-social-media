@@ -13,23 +13,23 @@ Content-Type: application/json
 }
 
 ###
-4. access: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTg0MTYzOTcsImV4cCI6MTY5ODQxODE5N30.5ljWZwSSmhO7f3SV37DA3Q95kJjAbw-5aj_2WhGU9CU 
-4. refresh: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTgzNDA4NzJ9.FGuVV6lQW8BEFdEtuIWBMKxvV215GjpqBmJrj8gYWLA
+4. access: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTg1Njc2NDEsImV4cCI6MTY5ODU2OTQ0MX0.4wLY6E4eC6DMnSslAn6-mH7Xvo8VXe9tJYLyQeDOzKw 
+4. refresh: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTg1Njc2NDF9.bkV0vWhpnpjlNVtC_uLrSsEPTbRL2H6LjnImlK9brCo 
 ###
 
 POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-  "username": "username3",
-  "password": "password3"
+  "username": "username4",
+  "password": "password4"
 }
 
 ###
 
 POST http://localhost:4000/about
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTg0MTYzOTcsImV4cCI6MTY5ODQxODE5N30.5ljWZwSSmhO7f3SV37DA3Q95kJjAbw-5aj_2WhGU9CU 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTg1Njc2NDEsImV4cCI6MTY5ODU2OTQ0MX0.4wLY6E4eC6DMnSslAn6-mH7Xvo8VXe9tJYLyQeDOzKw 
 
 {
   "about": "Hello I am person 4."
@@ -39,7 +39,8 @@ POST http://localhost:4000/refresh
 Content-Type: application/json
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTgzNDA4NzJ9.FGuVV6lQW8BEFdEtuIWBMKxvV215GjpqBmJrj8gYWLA"
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTg1Njc2NDF9.bkV0vWhpnpjlNVtC_uLrSsEPTbRL2H6LjnImlK9brCo"
+
 }
 
 ###
@@ -51,10 +52,10 @@ GET http://localhost:4000/username4 HTTP/1.1
 
 # add post
 # POST http://localhost:4000/post/upload
-{
-  "postTitle": "dfd",
-  "postContent": "dfdfddf"
-}
+# {
+#   "postTitle": "dfd",
+#   "postContent": "dfdfddf"
+# }
 
 
 ###
@@ -64,8 +65,8 @@ GET http://localhost:4000/post/username/username4
 ###
 
 # delete post give post id
-DELETE http://localhost:4000/post/delete/2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTg0MTYzOTcsImV4cCI6MTY5ODQxODE5N30.5ljWZwSSmhO7f3SV37DA3Q95kJjAbw-5aj_2WhGU9CU 
+DELETE http://localhost:4000/post/delete/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTg0MjIwNzEsImV4cCI6MTY5ODQyMzg3MX0.R1hQCxbVzTMzqewT-ga7ezg3GBIlA26hu4kDHcC57N4 
 
 ###
 # get single post by id
@@ -73,25 +74,49 @@ GET http://localhost:4000/post/postId/1
 
 ###
 
+GET http://localhost:4000/post/feeds
+
+###
+
 # like dislike post
 
 POST http://localhost:4000/post/like
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTg0MTg3NzUsImV4cCI6MTY5ODQyMDU3NX0.BdmONoSKokdiKPig99o3mVBBA5Ldp8y98TewxylbpmY 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTg1Njc2NDEsImV4cCI6MTY5ODU2OTQ0MX0.4wLY6E4eC6DMnSslAn6-mH7Xvo8VXe9tJYLyQeDOzKw  
 
 {
-  "postId": "2"
+  "postId": "3"
 }
 
 ###
-# this is user: username3
-POST   http://localhost:4000/post/like
+GET http://localhost:4000/post/likedposts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTg1Njc2NDEsImV4cCI6MTY5ODU2OTQ0MX0.4wLY6E4eC6DMnSslAn6-mH7Xvo8VXe9tJYLyQeDOzKw  
+
+###
+POST http://localhost:4000/comment/upload
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJ1c2VybmFtZTMiLCJpYXQiOjE2OTg0MTg4NDksImV4cCI6MTY5ODQyMDY0OX0.9fZUtSO62YWJeC22xDx3uc4g5T-Qg3tzaOXWyfTDjMQ 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTg1Njg2NDgsImV4cCI6MTY5ODU3MDQ0OH0.sRbb4ipJkDaOwm4SWdhrz8ltp2FbJ-r26zOR6TD_BlQ 
 
 {
-  "postId":"3"
+  "postId": "4",
+  "commentContent": "Greate Hello World"
 }
 
 ###
 
+
+GET http://localhost:4000/comment/last HTTP/1.1
+Content-Type: application/json
+
+{
+  "postId": "4"
+}
+###
+
+
+GET http://localhost:4000/comment/all HTTP/1.1
+Content-Type: application/json
+
+{
+  "postId": "1"
+}

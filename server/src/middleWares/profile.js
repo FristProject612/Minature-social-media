@@ -55,4 +55,30 @@ async function viewUser(req, res) {
   res.status(200).json(userData);
 }
 
-module.exports = { uploadAvtar, uploadAbout, viewUser };
+async function viewUserById(req, res) {
+  const userId = req.body.userId;
+
+  console.log("view username: ", userId);
+
+  if(!userId) {
+    return res.status(400).json({ message: "userId not found."});
+  }
+
+  const row = await user.checkById(userId);
+
+  if(!row) {
+    return res.status(400).json({ message: `UserId: ${userId} invalid`});
+  }
+
+  const userData = {
+    username: row.username , 
+    first_name: row.first_name, 
+    last_name: row.last_name, 
+    image_exists: row.image_exists,
+    image_path: row.image_path
+  }; 
+
+  res.status(200).json(userData);
+}
+
+module.exports = { uploadAvtar, uploadAbout, viewUser, viewUserById};
