@@ -4,19 +4,21 @@ const fs = require('fs');
 const path = './db.db';
 
 const schema = {
-  users:`CREATE TABLE users (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  username TEXT UNIQUE NOT NULL,
-  password TEXT NOT NULL,
-  email TEXT UNIQUE NOT NULL,
-  first_name TEXT NOT NULL,
-  last_name TEXT NOT NULL,
-  dob DATE NOT NULL,
-  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  token TEXT,
-  about TEXT)`,
+  users: `CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    dob DATE NOT NULL,
+    image_exists INTEGER DEFAULT 0,
+    image_path TEXT,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    token TEXT,
+    about TEXT)`,
 
-  post: `CREATE TABLE Post (
+  post: `CREATE TABLE post (
     postId INTEGER PRIMARY KEY AUTOINCREMENT,
     userId INTEGER not null,
     post_title TEXT,
@@ -24,51 +26,65 @@ const schema = {
     likes INTEGER DEFAULT 0,
     comments INTEGER DEFAULT 0,
     post_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-    post_image BLOB,
-    FOREIGN KEY(userId) REFERENCES User(userId))`,
+    image_exists INTEGER DEFAULT 0,
+    image_path TEXT,
+    FOREIGN KEY(userId) REFERENCES users(id))`,
 
-  comment: `CREATE TABLE Comment (
+  comment: `CREATE TABLE comment (
     commentId INTEGER PRIMARY KEY AUTOINCREMENT,
     userId INTEGER not null,
     postId INTEGER not null,
     comment_content TEXT not null,
     comment_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (userId) REFERENCES User(userId),
-    FOREIGN KEY (postId) REFERENCES Post(postId))`,
+    FOREIGN KEY (userId) REFERENCES users(id),
+    FOREIGN KEY (postId) REFERENCES post(postId))`,
 
-  friend: `CREATE TABLE Friend (
+  friend: `CREATE TABLE friend (
     friendId INTEGER PRIMARY KEY AUTOINCREMENT,
-    userOne INTEGER not null,
-    userTwo INTEGER not null,
+    req_sender INTEGER not null,
+    req_receiver INTEGER not null,
     status INTEGER not null,
-    FOREIGN KEY (userTwo) REFERENCES User(userId),
-    FOREIGN KEY (userOne) REFERENCES User(userId))`,
+    FOREIGN KEY (req_sender) REFERENCES users(id),
+    FOREIGN KEY (req_receiver) REFERENCES users(id))`,
 
-  message: `CREATE TABLE Message (
+  message: `CREATE TABLE message (
     messageId INTEGER PRIMARY KEY AUTOINCREMENT,
     friendId INTEGER not null,
+    message_sender INTEGER not null,
     message_content TEXT not null,
     chat_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (friendId) REFERENCES Friend(friendId))` };
+    FOREIGN KEY (friendId) REFERENCES friend(friendId),
+    FOREIGN KEY (message_sender) REFERENCES users(id))`,
+  
+  likes: `CREATE TABLE likes (
+    userId INTEGER not null,
+    postId INTEGER not null,
+    likedOn DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (userId) REFERENCES users(id),
+    FOREIGN KEY (postId) REFERENCES post(postId),
+    CONSTRAINT likes_pk PRIMARY KEY(userId, postId))`
+};
 
-// This must be called exactly once 
 async function open() {
-  console.log("file exits",fs.existsSync(path));
+  console.log("file exists",fs.existsSync(path));
   if(!fs.existsSync(path)){
     const db = await AsyncDatabase.open(path);
 
-
+      await db.exec(`PRAGMA foreign_keys = ON;`);
       await db.run(schema.users);
       await db.run(schema.post);
       await db.run(schema.comment);
       await db.run(schema.friend);
       await db.run(schema.message);
+      await db.run(schema.likes);
       console.log("database created successfully");
       return db;
     }
 
   else{
     const db = await AsyncDatabase.open(path);
+    // every time connection closes, the fk check turns off
+    await db.exec(`PRAGMA foreign_keys = ON;`);
     console.log("database connected successfully");
     return db;
   }

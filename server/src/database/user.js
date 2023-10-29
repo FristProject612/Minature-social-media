@@ -1,4 +1,5 @@
-const { connectDb } = require("./connectDb")
+const { connectDb } = require("./connectDb");
+const fs = require('fs')
 
 async function insert(user) {
   const row = {username, password, email, first_name, last_name, dob} = user;
@@ -31,12 +32,12 @@ async function check(username) {
   return row;
 }
 
-async function updateAbout(username, about) {
+async function updateAbout(userId, about) {
   const db = await connectDb();
   const query = `update users
                  set about = ?
-                 where username = ?`;
-  await db.run(query, [about, username]);
+                 where id = ?`;
+  await db.run(query, [about, userId]);
   await db.close()
 }
 
@@ -64,7 +65,41 @@ async function checkToken(token) {
                  from users
                  where token = ?`
   const row = await db.get(query, [token]);
+  await db.close();
   return (row)? true: false;
 }
 
-module.exports = { insert, show, check, updateAbout, updateToken, removeToken, checkToken }
+async function updateAvtar(userId, fileName, filetype) {
+  const dir = `./public/images/${userId}`;
+  const image_extension = filetype.split('/').pop();
+  if(!fs.existsSync(dir)){
+    fs.mkdirSync(dir, { recursive: true});
+  }
+
+  const source = `./uploads/${fileName}`;
+  const destination = `${dir}/${userId}.${image_extension}`;
+
+  fs.rename(source, destination, (err) => {
+    if(err){
+      console.error("Unable to transfer profile picture: ", err.message);
+    }
+    else{
+      console.log("profile pic transfered successfully.");
+    }
+  });
+
+  // database side work
+  const db = await connectDb();
+  const image_exists = 1;
+  const image_path = destination.split('/').splice(2).join('/');
+
+  const query = `update users
+                 set image_exists = ?,
+                 image_path = ?
+                 where id = ?`;
+  
+  await db.run(query, [image_exists, image_path, userId]);
+  db.close();
+}
+
+module.exports = { insert, show, check, updateAbout, updateToken, removeToken, checkToken, updateAvtar }

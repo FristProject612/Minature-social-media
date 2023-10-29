@@ -1,45 +1,97 @@
+###
 POST http://localhost:4000/
 Content-Type: application/json
 
 
  {
-  "username": "Aditya34&",
-  "password": "ddRT##4304",
-  "email": "adityavinchhi@gmail.com",
-  "first_name": "Aproov",
-  "last_name": "Jain",
-  "dob": "2003-11-04"
+  "username": "username4",
+  "password": "password4",
+  "email": "mail4@gmail.com",
+  "first_name": "fname4",
+  "last_name": "lname4",
+  "dob": "2003-12-04"
 }
 
 ###
-
+4. access: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTg0MTYzOTcsImV4cCI6MTY5ODQxODE5N30.5ljWZwSSmhO7f3SV37DA3Q95kJjAbw-5aj_2WhGU9CU 
+4. refresh: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTgzNDA4NzJ9.FGuVV6lQW8BEFdEtuIWBMKxvV215GjpqBmJrj8gYWLA
+###
 
 POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-  "username": "Aditya34&",
-  "password": "ddRT##4304"
+  "username": "username3",
+  "password": "password3"
 }
 
 ###
 
-POST http://localhost:4000/logout
+POST http://localhost:4000/about
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTg0MTYzOTcsImV4cCI6MTY5ODQxODE5N30.5ljWZwSSmhO7f3SV37DA3Q95kJjAbw-5aj_2WhGU9CU 
+
+{
+  "about": "Hello I am person 4."
+}
+###
+POST http://localhost:4000/refresh
 Content-Type: application/json
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJBZGl0eWEzNCYiLCJpYXQiOjE2OTc5ODU0MTJ9.-fC2LZgP6yMDmfKc9QsJrgfcVgulkJb18jNjJCsPePw"
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTgzNDA4NzJ9.FGuVV6lQW8BEFdEtuIWBMKxvV215GjpqBmJrj8gYWLA"
 }
-###
-
-GET http://localhost:4000/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJBZGl0eWEzNCYiLCJpYXQiOjE2OTc5ODgzNTIsImV4cCI6MTY5Nzk5MDE1Mn0.R1kNyI6QNEwdlsgce4Iipxhx68vDms4u5912Va49mMs
 
 ###
 
-POST  http://localhost:4000/refresh
+# get profile details
+GET http://localhost:4000/username4 HTTP/1.1
+
+
+
+# add post
+# POST http://localhost:4000/post/upload
+{
+  "postTitle": "dfd",
+  "postContent": "dfdfddf"
+}
+
+
+###
+# get all post of username
+GET http://localhost:4000/post/username/username4
+
+###
+
+# delete post give post id
+DELETE http://localhost:4000/post/delete/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTg0MTYzOTcsImV4cCI6MTY5ODQxODE5N30.5ljWZwSSmhO7f3SV37DA3Q95kJjAbw-5aj_2WhGU9CU 
+
+###
+# get single post by id
+GET http://localhost:4000/post/postId/1
+
+###
+
+# like dislike post
+
+POST http://localhost:4000/post/like
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ1c2VybmFtZTQiLCJpYXQiOjE2OTg0MTg3NzUsImV4cCI6MTY5ODQyMDU3NX0.BdmONoSKokdiKPig99o3mVBBA5Ldp8y98TewxylbpmY 
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJBZGl0eWEzNCYiLCJpYXQiOjE2OTc5OTA2NTV9.dco_KSDrblUhE-JVTYunGGBPun-_YLSG813VmEn0m80"
+  "postId": "2"
 }
+
+###
+# this is user: username3
+POST   http://localhost:4000/post/like
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJ1c2VybmFtZTMiLCJpYXQiOjE2OTg0MTg4NDksImV4cCI6MTY5ODQyMDY0OX0.9fZUtSO62YWJeC22xDx3uc4g5T-Qg3tzaOXWyfTDjMQ 
+
+{
+  "postId":"3"
+}
+
+###
+

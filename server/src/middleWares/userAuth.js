@@ -11,6 +11,7 @@ const signup = async (req, res) => {
 
     // check for unique username
     const checkUserName = await user.check(username);
+    console.log("check point 1: ", checkUserName);
     if(checkUserName){
       return res.status(409).json({
         message: `Username ${username} already exit.`});
@@ -21,7 +22,7 @@ const signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
     userDetails.password = hashedPassword;
     await user.insert(userDetails);
-
+    console.log("check point 2");
     res.status(200).json({
       status: "success",
       message: "user saved successfully",
