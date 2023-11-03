@@ -8,6 +8,7 @@ import Signup from './pages/Signup/Signup.jsx';
 import ErrorPage from './error-page.jsx';
 import Login from './pages/Login/Login.jsx';
 import Home from './pages/Home/Home.jsx'
+import Root from './pages/Root/Root.jsx';
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
@@ -26,8 +27,14 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Home />,
-    errorElement: <ErrorPage />
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/home",
+        element: <Home />,
+      }
+    ]
   }
 ])
 

@@ -67,13 +67,9 @@ async function getUserPosts(userId) {
 
   const userPosts = await db.all(query, [userId]);
   
-  const postData = (userPosts.length === 0) 
-    ? null
-    : userPosts
 
-  console.log("postData: ", postData);
   await db.close();
-  return postData;
+  return userPosts;
 }
 
 async function deletePost (userId, postId) {
@@ -126,7 +122,7 @@ async function getAllPosts() {
   const rows = await db.all(query);
   await db.close();
 
-  return (rows.length === 0)? null : rows;
+  return rows;
 }
 
 

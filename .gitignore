@@ -9,6 +9,7 @@ yarn-debug.log
 # SQLite
 *.sqlite
 *.sqlite3
+*.db
 
 # Express
 .env
@@ -21,6 +22,10 @@ static/
 
 # Other
 .DS_Store
+.vscode/
+
+# images
+public/
 
 # dependencies
 /.pnp

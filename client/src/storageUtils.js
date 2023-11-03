@@ -16,3 +16,12 @@ export function getRefreshToken() {
   const refreshToken = localStorage.getItem('refreshToken');
   return refreshToken;
 }
+
+export function storeUser(user) {
+  localStorage.setItem('user', JSON.stringify(user));
+}
+
+export function getUser() {
+  const user = JSON.parse(localStorage.getItem('user'));
+  return user;
+}

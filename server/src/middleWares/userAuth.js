@@ -11,7 +11,6 @@ const signup = async (req, res) => {
 
     // check for unique username
     const checkUserName = await user.check(username);
-    console.log("check point 1: ", checkUserName);
     if(checkUserName){
       return res.status(409).json({
         message: `Username ${username} already exit.`});
@@ -22,13 +21,9 @@ const signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
     userDetails.password = hashedPassword;
     await user.insert(userDetails);
-    console.log("check point 2");
     res.status(200).json({
-      status: "success",
       message: "user saved successfully",
-      data: {
-        user: username,
-      },
+      user: username,
     });
     console.log(`success username: ${username}`);
   } 
@@ -62,10 +57,10 @@ async function login(req, res) {
     const refreshToken = generateToken.generateRefreshToken(userData);
     await user.updateToken(userData.username, refreshToken);
 
-    res.status(200).json({
-      accessToken: accessToken, 
-      refreshToken: refreshToken
-    });
+    const {password: x, ...rest}  = userData;
+
+
+    res.status(200).json({accessToken: accessToken, refreshToken: refreshToken, user: rest});
   }
   catch(e) {
     console.error("login failure: ",e.message);
@@ -101,7 +96,7 @@ async function authenticateUser(req, res, next) {
   const accessToken = authHeader && authHeader.split(" ")[1];
 
   if (!accessToken) {
-    return res.status(403).json({ message: "You didn't send access token"});
+    return res.status(400).json({ message: "You didn't send access token"});
   }
 
   try{

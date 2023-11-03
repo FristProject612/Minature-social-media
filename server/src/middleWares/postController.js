@@ -53,9 +53,6 @@ async function showUserPosts(req, res) {
 
     const userId = userData.id;
     const userPosts = await post.getUserPosts(userId) 
-    if(!userPosts){
-      return res.status(404).json({ message: `Nothing posted by user ${username}`});
-    }
     res.status(200).json(userPosts);
   }
   catch(e) {

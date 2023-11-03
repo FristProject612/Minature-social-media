@@ -56,7 +56,7 @@ async function viewUser(req, res) {
 }
 
 async function viewUserById(req, res) {
-  const userId = req.body.userId;
+  const userId = req.userData.id;
 
   console.log("view username: ", userId);
 

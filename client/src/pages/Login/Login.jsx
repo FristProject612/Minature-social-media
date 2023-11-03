@@ -3,7 +3,6 @@ import { useState } from 'react'
 import '../../assets/global.css'
 import Notification from '../../components/Notifications';
 import { login } from '../../api/auth.js';
-import { storeRefreshToken, storeAccessToken } from '../../storageUtils';
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -37,8 +36,6 @@ export default function Login() {
       return showNotification(responseData.data.message);
     }
 
-    storeAccessToken(responseData.accessToken);
-    storeRefreshToken(responseData.refreshToken);
 
 
     navigate('/');

@@ -38,7 +38,7 @@ async function showAllComments(postId) {
   const rows = await db.all(query, [postId]);
   await db.close();
 
-  return (rows.length === 0) ? null : rows;
+  return rows;
 }
 
 module.exports = { addComment, showLastComment, showAllComments};
