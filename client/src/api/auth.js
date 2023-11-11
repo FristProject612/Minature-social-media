@@ -1,5 +1,5 @@
 import axios from "axios";
-import { storeRefreshToken, getRefreshToken, storeAccessToken, getAccessToken, storeUser } from "../storageUtils";
+import { storeRefreshToken, getRefreshToken, storeAccessToken, storeUser } from "../storageUtils";
 
 const url = axios.create({
   baseURL: "http://localhost:4000"
@@ -17,9 +17,6 @@ export async function login(userPass) {
     storeAccessToken(response.data.accessToken);
     storeRefreshToken(response.data.refreshToken);
     storeUser(response.data.user);
-
-    console.log("refresh Token: ", getRefreshToken());
-    console.log("access Token: ", getAccessToken());
 
     return response.data;
   }
@@ -58,6 +55,7 @@ export async function signup(user) {
 
 
 export async function refreshAccessToken() {
+  console.log('refreshing access token');
   const refreshToken = getRefreshToken();
   // if refresh token doesn't exists, redirect user to login page 
   if(!refreshToken){

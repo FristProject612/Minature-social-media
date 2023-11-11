@@ -1,27 +1,27 @@
 
 export function storeAccessToken(token) {
-  localStorage.setItem('accessToken', token);
+  sessionStorage.setItem('accessToken', token);
 }
 
 export function getAccessToken() {
-  const accessToken = localStorage.getItem('accessToken');
+  const accessToken = sessionStorage.getItem('accessToken');
   return accessToken;
 }
 
 export function storeRefreshToken(token) {
-  localStorage.setItem('refreshToken', token);
+  sessionStorage.setItem('refreshToken', token);
 }
 
 export function getRefreshToken() {
-  const refreshToken = localStorage.getItem('refreshToken');
+  const refreshToken = sessionStorage.getItem('refreshToken');
   return refreshToken;
 }
 
 export function storeUser(user) {
-  localStorage.setItem('user', JSON.stringify(user));
+  sessionStorage.setItem('user', JSON.stringify(user));
 }
 
 export function getUser() {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(sessionStorage.getItem('user'));
   return user;
 }

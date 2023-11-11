@@ -1,22 +1,28 @@
 import PropTypes from 'prop-types';
 import { likePost } from '../../api/post';
 import { useState } from 'react';
-import {useNavigate} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { BsFillChatSquareDotsFill } from 'react-icons/bs';
 import { AiFillLike } from 'react-icons/ai';
+import { AiOutlineLike } from 'react-icons/ai';
 
 export default function ShowPost({post}) {
-  const navigate = useNavigate();
   const [likes, setLikes] = useState(post.likes);
+  const [userLiked, setUserLiked] = useState(post.isLiked);
 
   const handleLike = async () => {
+    if(userLiked){
+      setUserLiked(0);
+      setLikes(likes - 1);
+      return;
+    }
+    setUserLiked(1);
+    setLikes(likes + 1);
     const response = await likePost(post.postId);
     console.log(response);
     if(!response){
-      navigate('/login');
-      return;
+      return <Navigate to="/login" />;
     }
-    setLikes(likes + 1);
   }
 
   return(
@@ -42,7 +48,7 @@ export default function ShowPost({post}) {
           <span>{<BsFillChatSquareDotsFill /> } {post.comments}</span>
       </div>
       <div className="card-body">
-          <button type="button" onClick={handleLike} className="btn btn-primary">Like</button>
+          <button type="button" onClick={handleLike} className="btn btn-primary">{(userLiked)? <AiFillLike /> : <AiOutlineLike />}</button>
       </div>
     </div>
   )
@@ -60,6 +66,7 @@ ShowPost.propTypes = {
     likes: PropTypes.number.isRequired,
     comments: PropTypes.number.isRequired,
     image_exists: PropTypes.number.isRequired,
-    image_path: PropTypes.string
+    image_path: PropTypes.string,
+    isLiked: PropTypes.number.isRequired
   })
 }

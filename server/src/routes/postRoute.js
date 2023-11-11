@@ -7,7 +7,7 @@ const { authenticateUser } = require('../middleWares/userAuth');
 const uploads = multer({ dest: './uploads'});
 router.post('/upload', authenticateUser, uploads.single('post'), uploadPost);
 
-router.get('/feeds', showAllPosts);
+router.get('/feeds', authenticateUser, showAllPosts);
 
 // show all posts by username
 router.get('/username/:username', showUserPosts);

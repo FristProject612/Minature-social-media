@@ -36,9 +36,7 @@ export default function Login() {
       return showNotification(responseData.data.message);
     }
 
-
-
-    navigate('/');
+    navigate('/feed');
   }
 
 

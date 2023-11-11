@@ -8,8 +8,12 @@ const url = axios.create({
 
 export async function likePost(postId) {
     try{
+      const accessToken = getAccessToken();
+      if(!accessToken){
+        return null;
+      }
       const headers = {
-        "Authorization": `Bearer ${getAccessToken()}`
+        "Authorization": `Bearer ${accessToken}`
       }
       const response = await url.post('/like', {
         postId: postId
@@ -66,12 +70,26 @@ export async function likePost(postId) {
 
 export async function getFeeds() {
   try{
-    const response = await url.get('/feeds');
+    const accessToken = getAccessToken();
+    if(!accessToken){
+      return null;
+    }
+    const headers = {
+      "Authorization": `Bearer ${accessToken}`
+    }
+    const response = await url.get('/feeds', { headers });
     return response.data;
   }
   catch(e) {
     console.log("error status: ", e.response.status);
     console.error("Error in getFeeds: ", e.response.message);
     console.error("System error message: ", e.message);
+      if(e.response.status === 403) {
+        const accessToken = refreshAccessToken();
+        if(!accessToken){
+          return null;
+        }
+        return await  getFeeds();
+
   }
-}
+}}

@@ -113,13 +113,27 @@ async function checkPost(postId) {
   return row;
 }
 
-async function getAllPosts() {
+async function getAllPosts(userId) {
   const db = await connectDb();
-  const query = `select postId, userId, post_title, post_content, likes, comments, post.image_exists as image_exists, post.image_path as image_path, post_time, username, users.image_exists as avtar_exists, users.image_path as avtar_path
-                 from post inner join users on post.userId = users.id 
-                 order by postId desc`;
+  const query = `SELECT post.postId, 
+                  post.userId, 
+                  post.post_title, 
+                  post.post_content, 
+                  post.likes, 
+                  post.comments, 
+                  post.image_exists AS image_exists, 
+                  post.image_path AS image_path, 
+                  post.post_time, 
+                  users.username, 
+                  users.image_exists AS avtar_exists, 
+                  users.image_path AS avtar_path,
+                  CASE WHEN likes.userId IS NOT NULL THEN 1 ELSE 0 END AS isLiked
+                FROM post
+                INNER JOIN users ON post.userId = users.id
+                LEFT JOIN likes ON post.postId = likes.postId AND likes.userId = ?
+                ORDER BY post.postId DESC;`;
 
-  const rows = await db.all(query);
+  const rows = await db.all(query, [userId]);
   await db.close();
 
   return rows;

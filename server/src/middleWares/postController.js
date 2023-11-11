@@ -104,7 +104,8 @@ async function getPost(req, res) {
 }
 
 async function showAllPosts(req, res) {
-  const rows = await post.getAllPosts();
+  const userId = req.userData.id;
+  const rows = await post.getAllPosts(userId);
 
   if(!rows){
     return res.status(200).json({ message: "No post in database."});

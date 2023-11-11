@@ -9,10 +9,12 @@ import ErrorPage from './error-page.jsx';
 import Login from './pages/Login/Login.jsx';
 import Home from './pages/Home/Home.jsx'
 import Root from './pages/Root/Root.jsx';
+import Feed from './pages/Feed/Feed.jsx'
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import './assets/global.css';
 
 const router = createBrowserRouter([
   {
@@ -26,13 +28,18 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />
   },
   {
+    path: "/home",
+    element: <Home />,
+    errorElement: <ErrorPage />
+  },
+  {
     path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/home",
-        element: <Home />,
+        path: "/feed",
+        element: <Feed />,
       }
     ]
   }

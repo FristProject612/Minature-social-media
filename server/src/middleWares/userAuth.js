@@ -57,7 +57,7 @@ async function login(req, res) {
     const refreshToken = generateToken.generateRefreshToken(userData);
     await user.updateToken(userData.username, refreshToken);
 
-    const {password: x, ...rest}  = userData;
+    const {password: x, token, ...rest}  = userData;
 
 
     res.status(200).json({accessToken: accessToken, refreshToken: refreshToken, user: rest});
