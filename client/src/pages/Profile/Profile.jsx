@@ -18,7 +18,7 @@ export default function Profile() {
                     ? <p>Please Wait...</p>
                     : <div className="form-group">
                         <legend>Username</legend><h2 className="my-3"><input type = "text" className="form-control" value = {profileDetails.username} disabled/></h2>
-                        <div className="d-flex align-items-center bg-gradient-primary">
+                        <div className="d-flex align-items-center">
                         <legend className="mr-4"style={{width:"fit-content"}}>Firstname:</legend><h3 className="my-3"><input type = "text" className="form-control" style={{width:"200px"}}  value = {profileDetails.first_name} disabled/></h3>
                         <legend className="ml-5 mr-4" style={{width:"fit-content"}}>Lastname:</legend><h3><input type = "text" className="form-control" style={{width:"200px"}}  value = {profileDetails.last_name} disabled/></h3>
                         </div>
