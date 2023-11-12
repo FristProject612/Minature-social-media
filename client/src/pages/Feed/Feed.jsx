@@ -21,8 +21,8 @@ export default function Feed() {
 
   return(
     <div className="" >
-      <div className="row">
-        <div className="col" style={{overflow: 'scroll'}}>
+      <div className="row" style={{marginLeft : '15rem',maxHeight: '100vh'}}>
+        <div className="col" style={{overflow: 'scroll',maxHeight: '100vh'}}>
           {
           (!posts)
             ? <p>Loading...</p>

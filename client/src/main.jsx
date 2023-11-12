@@ -10,6 +10,7 @@ import Login from './pages/Login/Login.jsx';
 import Home from './pages/Home/Home.jsx'
 import Root from './pages/Root/Root.jsx';
 import Feed from './pages/Feed/Feed.jsx'
+import Profile from './pages/Profile/Profile.jsx';
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/feed",
         element: <Feed />,
+      },
+      {
+        path :"/profile",
+        element : <Profile />,
       }
     ]
   }
