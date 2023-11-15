@@ -10,7 +10,7 @@ export default function Profile() {
         const profileUser = getUser();
         console.log("userData", profileUser);
         setProfileDetails(profileUser);
-    }, [])
+    })
     return(
         <div className="container mt-4 w-50">
             {

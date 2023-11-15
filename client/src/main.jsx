@@ -11,6 +11,8 @@ import Home from './pages/Home/Home.jsx'
 import Root from './pages/Root/Root.jsx';
 import Feed from './pages/Feed/Feed.jsx'
 import Profile from './pages/Profile/Profile.jsx';
+import AddPost from './pages/AddPost/addPost.jsx';
+import PostBox from './components/PostBox.jsx';
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
@@ -43,8 +45,16 @@ const router = createBrowserRouter([
         element: <Feed />,
       },
       {
-        path :"/profile",
-        element : <Profile />,
+        path: "/profile",
+        element: <Profile />,
+      },
+      {
+        path: "/addPost",
+        element: <AddPost />,
+      },
+      {
+        path: "/feed",
+        element: <PostBox />,
       }
     ]
   }
