@@ -15,6 +15,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import './assets/global.css';
+import MyProfile from './pages/ViewProfile/myprofile.jsx';
+import AddPost from './pages/addPost/addPost.jsx';
 
 const router = createBrowserRouter([
   {
@@ -40,7 +42,15 @@ const router = createBrowserRouter([
       {
         path: "/feed",
         element: <Feed />,
-      }
+      },
+      {
+        path: "/myprofile",
+        element: <MyProfile />
+      },
+      {
+        path: "/addpost",
+        element: <AddPost/>,
+      },
     ]
   }
 ])

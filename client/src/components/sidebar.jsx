@@ -9,9 +9,9 @@ const Sidebar = () => {
     <div className="sidebar-sticky"  style={{ height: '100vh' }}>
       <ul className="nav flex-column px-3">
         <li className="nav-item">
-          <Link className="nav-link active d-flex align-items-center" to="/home">
+          <Link className="nav-link active d-flex align-items-center" to="/feed">
             <AiFillHome />
-            <span className="px-2">Home</span>
+            <span className="px-2">Feeds</span>
           </Link>
         </li>
         <li className="nav-item">
@@ -21,7 +21,7 @@ const Sidebar = () => {
           </a>
         </li>
         <li className="nav-item">
-          <Link className="nav-link active d-flex align-items-center" to="/profile">
+          <Link className="nav-link active d-flex align-items-center" to="/myprofile">
             <BsPersonFill />
             <span className="px-2">Profile</span>
           </Link>

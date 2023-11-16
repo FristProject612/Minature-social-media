@@ -20,16 +20,16 @@ export default function Feed() {
   }, [])
 
   return(
-    <div className="" >
-      <div className="row">
-        <div className="col" style={{overflow: 'scroll'}}>
+    <div className="container-fluid" >
+      <div className="row py-4" style={{marginLeft: "15em"}}>
+        <div className="col" style={{overflow: "auto", maxHeight: "90vh"}}>
           {
           (!posts)
             ? <p>Loading...</p>
             : posts.map((post) =>  <ShowPost post={post} key={post.postId} /> )
           }
         </div>
-        <h1 className="col">dkfdkfjd</h1>
+        <h1 className="col" style={{overflow: "auto", maxHeight: "90vh"}}>dkfdkfjd</h1>
       </div>
     </div>
   )
