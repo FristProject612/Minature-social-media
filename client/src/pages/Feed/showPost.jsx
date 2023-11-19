@@ -6,7 +6,7 @@ import { BsFillChatSquareDotsFill } from 'react-icons/bs';
 import { AiFillLike } from 'react-icons/ai';
 import { AiOutlineLike } from 'react-icons/ai';
 
-export default function ShowPost({post}) {
+export default function ShowPost({post, showComment}) {
   const [likes, setLikes] = useState(post.likes);
   const [userLiked, setUserLiked] = useState(post.isLiked);
 
@@ -14,15 +14,22 @@ export default function ShowPost({post}) {
     if(userLiked){
       setUserLiked(0);
       setLikes(likes - 1);
-      return;
     }
+
+    else{
     setUserLiked(1);
     setLikes(likes + 1);
+    }
+
     const response = await likePost(post.postId);
     console.log(response);
     if(!response){
       return <Navigate to="/login" />;
     }
+  }
+
+  const handleComment = () => {
+    showComment(post.postId);
   }
 
   return(
@@ -49,6 +56,7 @@ export default function ShowPost({post}) {
       </div>
       <div className="card-body">
           <button type="button" onClick={handleLike} className="btn btn-primary">{(userLiked)? <AiFillLike /> : <AiOutlineLike />}</button>
+          <button type="button" onClick={handleComment} className="btn btn-primary" style={{marginLeft: "1rem"}}>{<BsFillChatSquareDotsFill />}</button>
       </div>
     </div>
   )
@@ -68,5 +76,6 @@ ShowPost.propTypes = {
     image_exists: PropTypes.number.isRequired,
     image_path: PropTypes.string,
     isLiked: PropTypes.number.isRequired
-  })
+  }),
+  showComment: PropTypes.func.isRequired,
 }

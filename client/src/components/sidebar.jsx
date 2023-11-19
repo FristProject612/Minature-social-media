@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
-import { BiSolidMessageDetail } from "react-icons/bi";
 import { BsPersonFill } from "react-icons/bs";
 
 const Sidebar = () => {
@@ -13,12 +12,6 @@ const Sidebar = () => {
             <AiFillHome />
             <span className="px-2">Feeds</span>
           </Link>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link active d-flex align-items-center" href="#">
-          <BiSolidMessageDetail />
-            <span className="px-2">Messages</span>
-          </a>
         </li>
         <li className="nav-item">
           <Link className="nav-link active d-flex align-items-center" to="/myprofile">

@@ -3,9 +3,11 @@ import { getFeeds } from "../../api/post";
 import '../../assets/global.css'
 import ShowPost from "./showPost";
 import { Navigate } from "react-router-dom";
+import Comment from "./Comment";
 
 export default function Feed() {
   const [posts, setPosts] = useState(null);
+  const [commentPost , setCommentPost] = useState(null);
 
   useEffect(() => {
     async function fetchData(){
@@ -19,17 +21,23 @@ export default function Feed() {
     fetchData();
   }, [])
 
+  const showComment = (postId) => {
+    setCommentPost(postId);
+  }
+
   return(
     <div className="container-fluid" >
       <div className="row py-4" style={{marginLeft: "15em"}}>
-        <div className="col" style={{overflow: "auto", maxHeight: "90vh"}}>
+        <div className="col" style={{overflow: "auto", maxHeight: "100vh"}}>
           {
           (!posts)
             ? <p>Loading...</p>
-            : posts.map((post) =>  <ShowPost post={post} key={post.postId} /> )
+            : posts.map((post) =>  <ShowPost post={post} key={post.postId} showComment={showComment}/> )
           }
         </div>
-        <h1 className="col" style={{overflow: "auto", maxHeight: "90vh"}}>dkfdkfjd</h1>
+        <div className="col" style={{overflow: "auto", maxHeight: "100vh"}}>
+          <Comment postId={commentPost}/>
+        </div>
       </div>
     </div>
   )

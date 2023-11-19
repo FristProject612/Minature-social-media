@@ -27,8 +27,8 @@ async function uploadComment(req, res) {
     commentContent: commentContent
   };
 
-  await comment.addComment(commentData);
-  res.status(200).json({ message: "comment added successfully."});
+  const commentId = await comment.addComment(commentData);
+  res.status(200).json({ commentId: commentId, message: "comment added successfully."});
 }
 
 async function getLastComment(req, res) {
@@ -53,7 +53,7 @@ async function getLastComment(req, res) {
 }
 
 async function getAllComments(req, res) {
-  const postId = req.body.postId;
+  const postId = req.query.postId;
   console.log("getAllComment body: ", req.body);
 
   if(!postId) {
@@ -66,10 +66,6 @@ async function getAllComments(req, res) {
   }
 
   const rows = await comment.showAllComments(postId);
-  if(!rows) {
-    return res.status(200).josn({message: `There are no comment of postId: ${postId}`});
-  }
-
   res.status(200).json(rows); 
 }
 

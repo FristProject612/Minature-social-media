@@ -10,9 +10,11 @@ async function addComment(commentData) {
                              set comments = comments + 1
                              where postId = ?`;
   
-  await db.run(insertComment, [userId, postId, commentContent]);
+  const table = await db.run(insertComment, [userId, postId, commentContent]);
+  const commentId = table.lastID;
   await db.run(incrementComments, [postId]);
   await db.close()
+  return commentId;
 }
 
 async function showLastComment(postId) {
