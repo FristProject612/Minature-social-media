@@ -6,6 +6,28 @@ Run following command on power shell to install node:
 ```
 winget install -e --id OpenJS.NodeJS
 ```
+
+## Setup Project
+### Install dependencies
+1. Open terminal with current directory as client and run:
+```
+npm install
+```
+2. Open new terminal with current direactory as server and run
+```
+npm install
+```
+
+### Run project
+1. In terminal with current directory as client, run:
+```
+npm run dev
+```
+2. In terminal with current directory as server, run:
+```
+npm run dev
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -13,13 +35,13 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the react app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open [http://localhost:5173](http://localhost:5173) to view it in your browser.
 
 
 ### `npm run dev`
 
 Lanuches the backend server will listen at.\
-[http://localhost:5000/api](http://localhost:5000/api)
+[http://localhost:4000/](http://localhost:4000)
 _Note_: Open new terminal and run above command
 ### `npm run build`
 
